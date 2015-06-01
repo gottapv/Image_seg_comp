@@ -1,0 +1,73 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source Files\Plan1">
+      <UniqueIdentifier>{9ce128d4-6f86-479d-8719-570ffa8bec13}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Plan2">
+      <UniqueIdentifier>{779d39f6-3494-4bf0-8181-963e57857e02}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Basic_Color_changes.cpp">
+      <Filter>Source Files\Plan1</Filter>
+    </ClCompile>
+    <ClCompile Include="Draw boundaries over object.cpp">
+      <Filter>Source Files\Plan1</Filter>
+    </ClCompile>
+    <ClCompile Include="Draw marking lines.cpp">
+      <Filter>Source Files\Plan1</Filter>
+    </ClCompile>
+    <ClCompile Include="Fail_test.cpp">
+      <Filter>Source Files\Plan1</Filter>
+    </ClCompile>
+    <ClCompile Include="fancy canny contours.cpp">
+      <Filter>Source Files\Plan1</Filter>
+    </ClCompile>
+    <ClCompile Include="good features to track.cpp">
+      <Filter>Source Files\Plan1</Filter>
+    </ClCompile>
+    <ClCompile Include="KeyPoints detection with ORB.cpp">
+      <Filter>Source Files\Plan1</Filter>
+    </ClCompile>
+    <ClCompile Include="Not_Genralized.cpp">
+      <Filter>Source Files\Plan1</Filter>
+    </ClCompile>
+    <ClCompile Include="ORB_feature_test.cpp">
+      <Filter>Source Files\Plan1</Filter>
+    </ClCompile>
+    <ClCompile Include="SURF-Rotation.cpp">
+      <Filter>Source Files\Plan1</Filter>
+    </ClCompile>
+    <ClCompile Include="Test11.cpp">
+      <Filter>Source Files\Plan1</Filter>
+    </ClCompile>
+    <ClCompile Include="wrap rotation.cpp">
+      <Filter>Source Files\Plan1</Filter>
+    </ClCompile>
+    <ClCompile Include="Source2.cpp">
+      <Filter>Source Files\Plan2</Filter>
+    </ClCompile>
+    <ClCompile Include="Matching_clone.cpp">
+      <Filter>Source Files\Plan2</Filter>
+    </ClCompile>
+    <ClCompile Include="Segmenting.cpp">
+      <Filter>Source Files\Plan2</Filter>
+    </ClCompile>
+    <ClCompile Include="matchingmethod, slider bar.cpp">
+      <Filter>Source Files\Plan2</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
