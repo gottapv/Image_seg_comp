@@ -17,7 +17,7 @@ struct seg_coords
 struct seg_Type{
 	Mat segment;
 	Point2d segment_coords;
-//	bool found_match = false;
+	bool found_match = true;
 };
 
 
@@ -27,8 +27,7 @@ Mat load_img1, load_img2, img, templ, result;
 const char* image_window = "Result Image after Detection";
 vector<seg_Type> list_Segments_img1, list_Segments_img2; //List to have all the segments to be stored.
 int match_method = 3;
-vector<Point> detections, boundaries;
-
+vector<Point> boundaries;
 
 //Gloabal from main:
 stringstream ss1, ss2;
@@ -49,7 +48,7 @@ double threshold_val = 0.90;
 void MatchingMethod(int, void*);
 void template_match();
 void make_segments();
-void print_detections();
+void draw_detections();
 
 //*************************
 //Should try to set up a roi and the segment the images and process them according to their array cound, ROI helps in less processing.
@@ -87,7 +86,7 @@ int main(int, char** argv)
 
 	template_match();
 
-	print_detections();
+//	draw_detections();
 
 	duration = cv::getTickCount() - duration;
 	duration /= cv::getTickFrequency();
@@ -100,17 +99,23 @@ int main(int, char** argv)
 	return 0;
 }
 
-void print_detections(){
-	
-	int size = detections.size();
-	for (int k = 0; k < size-1; k++){ 
-		if ((detections.at(k).y + templ.rows) > (detections.at(k + 1).y)){
-			if (boundaries.empty()){
-				boundaries.push_back(detections.at(k));
+void draw_detections(){
+
+	for (int i = 0; i < list_Segments_img2.size() - 1; i++){
+			if (list_Segments_img2.at(i).found_match ==false  && list_Segments_img2.at(i + 1).found_match == false){
+
+				boundaries.push_back(Point(list_Segments_img2.at(i + 1).segment_coords.x + templ.cols, list_Segments_img2.at(i + 1).segment_coords.x + templ.rows));
 			}
+			else
+				boundaries.push_back(Point(list_Segments_img2.at(i).segment_coords.x + templ.cols, list_Segments_img2.at(i).segment_coords.x + templ.rows));
 		}
-			cout << "New";
+	
+
+	for (int i = 0; i < boundaries.size()-2; i+=2){
+		rectangle(load_img2, boundaries.at(i), boundaries.at(i+i), Scalar(0, 0, 255), 2, 8, 0);
+		//Point(list_Segments_img2.at(i).segment_coords.x + templ.cols, list_Segments_img2.at(templ_count).segment_coords.y + templ.rows)
 	}
+	
 }
 
 void make_segments(){
@@ -221,7 +226,7 @@ void MatchingMethod(int templ_count, void*)
 //	Point templ_temp_coords = list_Segments_img2.at(templ_count).segment_coords;
 
 	if (maxVal <= threshold_val){
-		detections.push_back(Point(list_Segments_img2.at(templ_count).segment_coords));
+		list_Segments_img2.at(templ_count).found_match = false;
 		rectangle(load_img2, list_Segments_img2.at(templ_count).segment_coords, Point(list_Segments_img2.at(templ_count).segment_coords.x + templ.cols, list_Segments_img2.at(templ_count).segment_coords.y + templ.rows), Scalar(0, 0, 255), 2, 8, 0);
 	}
 	return;
