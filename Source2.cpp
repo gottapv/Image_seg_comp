@@ -20,6 +20,11 @@ struct seg_Type{
 	bool found_match = true;
 };
 
+struct co_ords{
+	Point start;
+	Point end;
+};
+
 
 /// Global Variables
 Mat frame_size;
@@ -27,7 +32,7 @@ Mat load_img1, load_img2, img, templ, result;
 const char* image_window = "Result Image after Detection";
 vector<seg_Type> list_Segments_img1, list_Segments_img2; //List to have all the segments to be stored.
 int match_method = 3;
-vector<Point> boundaries;
+vector<co_ords> boundaries;
 
 //Gloabal from main:
 stringstream ss1, ss2;
@@ -101,18 +106,34 @@ int main(int, char** argv)
 
 void draw_detections(){
 
-	for (int i = 0; i < list_Segments_img2.size() - 1; i++){
-			if (list_Segments_img2.at(i).found_match ==false  && list_Segments_img2.at(i + 1).found_match == false){
+	for (int i = 0; i < list_Segments_img2.size(); i++){
+		//if (list_Segments_img2.at(i).found_match == false)
+			boundaries.push_back(co_ords());
+	}
 
-				boundaries.push_back(Point(list_Segments_img2.at(i + 1).segment_coords.x + templ.cols, list_Segments_img2.at(i + 1).segment_coords.x + templ.rows));
+	for (int i = 0; i < list_Segments_img2.size() - 1; i++){
+		int j;
+			if (list_Segments_img2.at(i).found_match==false){
+				boundaries.at(i).start = list_Segments_img2.at(i).segment_coords;
+				for (j = i+1; j < list_Segments_img2.size();j++){
+					if (list_Segments_img2.at(j).found_match == false){
+						boundaries.at(i).end.x = list_Segments_img2.at(j).segment_coords.x+templ.cols;
+						boundaries.at(i).end.y = list_Segments_img2.at(j).segment_coords.y + templ.rows;
+					}
+					else{
+						boundaries.at(i).end.x = list_Segments_img2.at(i).segment_coords.x + templ.cols;
+						boundaries.at(i).end.y = list_Segments_img2.at(i).segment_coords.y + templ.rows;
+					}
+					i = j;
+				}
+				//boundaries.push_back(Point(list_Segments_img2.at(i + 1).segment_coords.x + templ.cols, list_Segments_img2.at(i + 1).segment_coords.x + templ.rows));
 			}
-			else
-				boundaries.push_back(Point(list_Segments_img2.at(i).segment_coords.x + templ.cols, list_Segments_img2.at(i).segment_coords.x + templ.rows));
+				//boundaries.push_back(Point(list_Segments_img2.at(i).segment_coords.x + templ.cols, list_Segments_img2.at(i).segment_coords.x + templ.rows));
 		}
 	
 
-	for (int i = 0; i < boundaries.size()-2; i+=2){
-		rectangle(load_img2, boundaries.at(i), boundaries.at(i+i), Scalar(0, 0, 255), 2, 8, 0);
+	for (int i = 0; i < boundaries.size(); i++){
+		rectangle(load_img2, boundaries.at(i).start, boundaries.at(i+i).end, Scalar(0, 0, 255), 2, 8, 0);
 		//Point(list_Segments_img2.at(i).segment_coords.x + templ.cols, list_Segments_img2.at(templ_count).segment_coords.y + templ.rows)
 	}
 	
